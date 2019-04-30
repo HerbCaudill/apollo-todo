@@ -6,6 +6,7 @@ import { ApolloClient } from 'apollo-client'
 import { withClientState } from 'apollo-link-state'
 import React from 'react'
 import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks'
 import { render } from 'react-dom'
 
 import App from './components/App'
@@ -38,7 +39,9 @@ const client = new ApolloClient({
 
 render(
   <ApolloProvider client={client}>
-    <App />
+    <ApolloHooksProvider client={client}>
+      <App />
+    </ApolloHooksProvider>
   </ApolloProvider>,
   document.getElementById('root')
 )

@@ -1,7 +1,6 @@
 import gql from 'graphql-tag'
 import React from 'react'
-import { Query } from 'react-apollo'
-
+import { useQuery } from 'react-apollo-hooks'
 import Todo from './Todo'
 
 const GET_TODOS = gql`
@@ -28,20 +27,22 @@ const getVisibleTodos = (todos, filter) => {
   }
 }
 
-const TodoList = () => (
-  <section className="main">
-    <Query query={GET_TODOS}>
-      {({ data: { todos, visibilityFilter } }) => {
-        return (
-          <ul className="todo-list">
-            {getVisibleTodos(todos, visibilityFilter).map(todo => (
-              <Todo key={todo.id} {...todo} />
-            ))}
-          </ul>
-        )
-      }}
-    </Query>
-  </section>
-)
+const TodoList = () => {
+  const { data, error, loading } = useQuery(GET_TODOS)
+  const { todos, visibilityFilter } = data
+  if (loading) {
+  }
+  if (error) {
+  }
+  return (
+    <section className="main">
+      <ul className="todo-list">
+        {getVisibleTodos(todos, visibilityFilter).map(todo => (
+          <Todo key={todo.id} {...todo} />
+        ))}
+      </ul>
+    </section>
+  )
+}
 
 export default TodoList
