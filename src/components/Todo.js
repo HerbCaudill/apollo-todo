@@ -1,6 +1,5 @@
 import gql from 'graphql-tag'
 import React, { useState, useRef, useEffect } from 'react'
-import { Mutation } from 'react-apollo'
 import { useMutation } from 'react-apollo-hooks'
 
 import { ENTER_KEY, ESCAPE_KEY } from './constants'
@@ -30,21 +29,20 @@ const Todo = ({ id, completed, text }) => {
 
   const input = useRef()
 
-  const selectAllOnEdit = () => if (editing) input.current.select()
+  const selectAllOnEdit = () => {
+    if (editing) input.current.select()
+  }
   useEffect(selectAllOnEdit, [editing])
 
-  const [editTodo] = useMutation(EDIT_TODO, { variables: { id, text: editText } })
   const [toggleTodo] = useMutation(TOGGLE_TODO, { variables: { id } })
+  const [editTodo] = useMutation(EDIT_TODO, { variables: { id, text: editText } })
   const [destroyTodo] = useMutation(DESTROY_TODO, { variables: { id } })
 
   const submit = e => {
     setEditText(e.target.value)
 
-    if (editText.length > 0) {
-      editTodo({ variables: { text: e.target.value, id } })
-    } else {
-      destroyTodo({ variables: { id } })
-    }
+    if (editText.length > 0) editTodo({ variables: { text: e.target.value, id } })
+    else destroyTodo({ variables: { id } })
     setEditing(false)
   }
 
