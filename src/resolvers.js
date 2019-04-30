@@ -1,13 +1,12 @@
 import gql from 'graphql-tag'
-
-const DEFAULT_TODOS = [
-  { __typename: 'TodoItem', id: 1, text: 'one', completed: false },
-  { __typename: 'TodoItem', id: 2, text: 'two', completed: true },
-  { __typename: 'TodoItem', id: 3, text: 'three', completed: false },
-]
+import GET_TODOS from './graphql/getTodos.js'
 
 export const defaults = {
-  todos: DEFAULT_TODOS,
+  todos: [
+    { id: 1, text: 'one', completed: false, __typename: 'TodoItem' },
+    { id: 2, text: 'two', completed: true, __typename: 'TodoItem' },
+    { id: 3, text: 'three', completed: false, __typename: 'TodoItem' },
+  ],
   visibilityFilter: 'SHOW_ALL',
 }
 
@@ -16,16 +15,7 @@ let nextTodoId = 100
 export const resolvers = {
   Mutation: {
     addTodo: (_, { text }, { cache }) => {
-      const query = gql`
-        query GetTodos {
-          todos @client {
-            id
-            text
-            completed
-          }
-        }
-      `
-      const previous = cache.readQuery({ query })
+      const previous = cache.readQuery({ query: GET_TODOS })
       const newTodo = {
         id: nextTodoId++,
         text,
@@ -53,16 +43,7 @@ export const resolvers = {
     },
 
     destroyTodo: (_, variables, { cache }) => {
-      const query = gql`
-        query GetTodos {
-          todos @client {
-            id
-            text
-            completed
-          }
-        }
-      `
-      const previous = cache.readQuery({ query })
+      const previous = cache.readQuery({ query: GET_TODOS })
       const data = { todos: previous.todos.filter(d => d.id !== variables.id) }
       cache.writeData({ data })
       return null
