@@ -30,9 +30,8 @@ const Todo = ({ id, completed, text }) => {
 
   const input = useRef()
 
-  useEffect(() => {
-    if (editing) input.current.select()
-  }, [editing])
+  const selectAllOnEdit = () => if (editing) input.current.select()
+  useEffect(selectAllOnEdit, [editing])
 
   const [editTodo] = useMutation(EDIT_TODO, { variables: { id, text: editText } })
   const [toggleTodo] = useMutation(TOGGLE_TODO, { variables: { id } })
