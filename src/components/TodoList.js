@@ -31,13 +31,15 @@ const getVisibleTodos = (todos, filter) => {
 const TodoList = () => (
   <section className="main">
     <Query query={GET_TODOS}>
-      {({ data: { todos, visibilityFilter } }) => (
-        <ul className="todo-list">
-          {getVisibleTodos(todos, visibilityFilter).map(todo => (
-            <Todo key={todo.id} {...todo} />
-          ))}
-        </ul>
-      )}
+      {({ data: { todos, visibilityFilter } }) => {
+        return (
+          <ul className="todo-list">
+            {getVisibleTodos(todos, visibilityFilter).map(todo => (
+              <Todo key={todo.id} {...todo} />
+            ))}
+          </ul>
+        )
+      }}
     </Query>
   </section>
 )

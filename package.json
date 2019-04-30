@@ -4,21 +4,21 @@
   "description": "React Typescript TodosMVC",
   "version": "0.0.2",
   "dependencies": {
-    "apollo-cache-inmemory": "^1.1.11",
-    "apollo-client": "^2.2.7",
+    "apollo-cache-inmemory": "^1.5.1",
+    "apollo-client": "^2.5.1",
     "apollo-link-state": "^0.4.2",
-    "graphql": "^0.11.7",
-    "graphql-tag": "^2.5.0",
-    "prop-types": "15.6.0",
-    "react": "15.6.2",
-    "react-apollo": "2.1.0-rc.5",
-    "react-dom": "15.6.2",
+    "classnames": "^2.2.6",
+    "graphql": "^14.2.1",
+    "graphql-tag": "^2.10.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-apollo": "^2.5.5",
+    "react-dom": "^16.8.6",
     "todomvc-app-css": "^2.0.0",
     "todomvc-common": "^1.0.1"
-
   },
   "devDependencies": {
-    "react-scripts": "1.0.0"
+    "react-scripts": "3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -31,6 +31,17 @@
     "semi": false,
     "singleQuote": true,
     "trailingComma": "es5"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
-
 }

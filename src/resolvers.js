@@ -1,11 +1,17 @@
 import gql from 'graphql-tag'
 
+const DEFAULT_TODOS = [
+  { __typename: 'TodoItem', id: 1, text: 'one', completed: false },
+  { __typename: 'TodoItem', id: 2, text: 'two', completed: true },
+  { __typename: 'TodoItem', id: 3, text: 'three', completed: false },
+]
+
 export const defaults = {
-  todos: [],
+  todos: DEFAULT_TODOS,
   visibilityFilter: 'SHOW_ALL',
 }
 
-let nextTodoId = 0
+let nextTodoId = 100
 
 export const resolvers = {
   Mutation: {
@@ -70,9 +76,9 @@ export const resolvers = {
         }
       `
       const todo = cache.readFragment({ fragment, id })
-      const editedTodo = { ...todo, text: variables.text }
-      cache.writeData({ id, editedTodo })
-      return editedTodo
+      const data = { ...todo, text: variables.text }
+      cache.writeData({ id, data })
+      return null
     },
   },
 }
