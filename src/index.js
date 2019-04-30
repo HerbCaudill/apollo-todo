@@ -1,14 +1,17 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { ApolloClient } from 'apollo-client';
-import { withClientState } from 'apollo-link-state';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from 'react-apollo';
+import 'todomvc-app-css/index.css'
+import 'todomvc-common/base.css'
 
-import App from './components/App';
-import { resolvers, defaults } from './resolvers';
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloClient } from 'apollo-client'
+import { withClientState } from 'apollo-link-state'
+import React from 'react'
+import { ApolloProvider } from 'react-apollo'
+import { render } from 'react-dom'
 
-const cache = new InMemoryCache();
+import App from './components/App'
+import { defaults, resolvers } from './resolvers'
+
+const cache = new InMemoryCache()
 
 const typeDefs = `
   type Todo {
@@ -26,16 +29,16 @@ const typeDefs = `
     visibilityFilter: String
     todos: [Todo]
   }
-`;
+`
 
 const client = new ApolloClient({
   cache,
   link: withClientState({ resolvers, defaults, cache, typeDefs }),
-});
+})
 
 render(
   <ApolloProvider client={client}>
     <App />
   </ApolloProvider>,
-  document.getElementById('root'),
-);
+  document.getElementById('root')
+)

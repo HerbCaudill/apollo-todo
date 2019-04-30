@@ -1,6 +1,6 @@
-import React from 'react';
-import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
+import React from 'react'
+import { Mutation } from 'react-apollo'
 
 const ADD_TODO = gql`
   mutation addTodo($text: String!) {
@@ -8,35 +8,37 @@ const ADD_TODO = gql`
       id
     }
   }
-`;
+`
 
 const TodoForm = () => (
   <Mutation mutation={ADD_TODO}>
     {addTodo => {
-      let input;
+      let input
       return (
         <div>
           <form
             onSubmit={e => {
-              e.preventDefault();
+              e.preventDefault()
               if (!input.value.trim()) {
-                return;
+                return
               }
-              addTodo({ variables: { text: input.value } });
-              input.value = '';
+              addTodo({ variables: { text: input.value } })
+              input.value = ''
             }}
           >
             <input
+              className="new-todo"
+              placeholder="What needs to be done?"
+              autoFocus={true}
               ref={node => {
-                input = node;
+                input = node
               }}
             />
-            <button type="submit">Add Todo</button>
           </form>
         </div>
-      );
+      )
     }}
   </Mutation>
-);
+)
 
-export default TodoForm;
+export default TodoForm

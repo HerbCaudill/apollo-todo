@@ -1,22 +1,19 @@
-import React from 'react';
+import React from 'react'
 
 const Link = ({ active, children, onClick }) => {
-  if (active) {
-    return <span>{children}</span>;
-  }
-
   return (
     // eslint-disable-next-line
     <a
+      className={active ? 'selected' : ''}
       href="#"
       onClick={e => {
-        e.preventDefault();
-        onClick();
+        e.preventDefault()
+        onClick()
       }}
     >
       {children}
     </a>
-  );
-};
+  )
+}
 
-export default Link;
+export default Link
