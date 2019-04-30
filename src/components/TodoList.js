@@ -28,12 +28,8 @@ const getVisibleTodos = (todos, filter) => {
 }
 
 const TodoList = () => {
-  const { data, error, loading } = useQuery(GET_TODOS)
+  const { data } = useQuery(GET_TODOS)
   const { todos, visibilityFilter } = data
-  if (loading) {
-  }
-  if (error) {
-  }
   return (
     <section className="main">
       <ul className="todo-list">
