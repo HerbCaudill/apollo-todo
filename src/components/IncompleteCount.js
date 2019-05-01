@@ -5,13 +5,16 @@ import { SHOW_ACTIVE } from '../constants'
 import { GET_STATE } from '../graphql'
 import { applyFilter, pluralize } from '../utils'
 
-export function Count() {
+export function IncompleteCount() {
   const { data } = useQuery(GET_STATE)
   const { todos } = data
-  const activeCount = applyFilter(todos, SHOW_ACTIVE).length
+
+  // we only count incomplete todos
+  const count = applyFilter(todos, SHOW_ACTIVE).length
+
   return (
     <span className="todo-count">
-      <strong>{activeCount}</strong> {pluralize(activeCount, 'item')} left
+      <strong>{count}</strong> {pluralize(count, 'item')} left
     </span>
   )
 }

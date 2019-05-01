@@ -20,12 +20,12 @@ const Todo = ({ id, completed, text }) => {
   }
   useEffect(selectAllOnEdit, [editing])
 
-  // graphql mutations
+  // hooks to graphql mutations
   const [toggleTodo] = useMutation(TOGGLE_TODO, { variables: { id } })
   const [editTodo] = useMutation(EDIT_TODO, { variables: { id, text: editText } })
   const [destroyTodo] = useMutation(DESTROY_TODO, { variables: { id } })
 
-  // used when user has either tabbed or clicked away, or hit Enter
+  // we save when the user has either tabbed or clicked away, or hit Enter
   const save = e => {
     if (editText.length > 0) {
       // todo was changed - keep the edited text
@@ -37,6 +37,7 @@ const Todo = ({ id, completed, text }) => {
     leaveEditMode()
   }
 
+  // listen for special keys
   const onKeyDown = e => {
     if (e.keyCode === ESCAPE_KEY) {
       // ESC: abort editing

@@ -9,6 +9,7 @@ const TodoList = () => {
   const { data } = useQuery(GET_STATE)
   const { todos, filter } = data
   const filteredTodos = applyFilter(todos, filter)
+
   return (
     <ul className="todo-list">
       {filteredTodos.map(todo => (

@@ -4,19 +4,27 @@ import { useMutation } from 'react-apollo-hooks'
 import { ADD_TODO } from '../graphql'
 
 const AddTodo = () => {
-  const input = useRef(null)
+  // input.current will contain a reference to the new todo input field
+  const input = useRef()
 
-  const onSubmit = e => {
+  // hook to graphql mutation
+  const [addTodo] = useMutation(ADD_TODO)
+
+  const save = e => {
+    // don't post back
     e.preventDefault()
-    if (input.current.value.trim().length === 0) return
-    addTodo({ variables: { text: input.current.value } })
+    const text = input.current.value.trim()
+    // don't create empty todos
+    if (text.length === 0) return
+    // update state with new todo
+    addTodo({ variables: { text } })
+    // clear input
     input.current.value = ''
   }
 
-  const [addTodo] = useMutation(ADD_TODO)
   return (
     <div>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={save}>
         <input className="new-todo" placeholder="What needs to be done?" autoFocus={true} ref={input} />
       </form>
     </div>

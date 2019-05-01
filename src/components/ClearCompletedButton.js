@@ -5,12 +5,15 @@ import { SHOW_COMPLETED } from '../constants'
 import { DESTROY_COMPLETED, GET_STATE } from '../graphql'
 import { applyFilter } from '../utils'
 
-export function ClearCompleted() {
+export function ClearCompletedButton() {
   const { data } = useQuery(GET_STATE)
   const { todos } = data
-  const completedCount = applyFilter(todos, SHOW_COMPLETED).length
+
+  // hook to graphql mutation
   const [destroyCompleted] = useMutation(DESTROY_COMPLETED, { variables: {} })
 
+  // don't render this button if there are no completed todos
+  const completedCount = applyFilter(todos, SHOW_COMPLETED).length
   if (completedCount === 0) return null
 
   return (

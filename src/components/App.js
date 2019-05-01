@@ -4,27 +4,30 @@ import { useQuery } from 'react-apollo-hooks'
 
 import { GET_STATE } from '../graphql'
 import AddTodo from './AddTodo'
-import { ClearCompleted } from './ClearCompleted'
-import { Count } from './Count'
-import { Filters } from './Filters'
+import { ClearCompletedButton } from './ClearCompletedButton'
+import { Filters as FilterButtons } from './FilterButtons'
+import { IncompleteCount } from './IncompleteCount'
 import TodoList from './TodoList'
 
 const App = () => {
   const { data } = useQuery(GET_STATE)
-  const isEmpty = data.todos.length === 0
+
+  // don't render `main` or `footer` if there are no todos
+  const hidden = data.todos.length === 0
+
   return (
     <div>
       <header className="header">
         <h1>todos</h1>
         <AddTodo />
       </header>
-      <section className={cn({ main: true, hidden: isEmpty })}>
+      <section className={cn({ main: true, hidden })}>
         <TodoList />
       </section>
-      <footer className={cn({ footer: true, hidden: isEmpty })}>
-        <Count />
-        <Filters />
-        <ClearCompleted />
+      <footer className={cn({ footer: true, hidden })}>
+        <IncompleteCount />
+        <FilterButtons />
+        <ClearCompletedButton />
       </footer>
     </div>
   )
