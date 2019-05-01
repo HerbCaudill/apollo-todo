@@ -1,6 +1,5 @@
 import { GET_STATE, TODO_FRAGMENT } from '.'
-
-let nextTodoId = 100
+import { uuid } from '../utils'
 
 export const resolvers = {
   Mutation: {
@@ -12,7 +11,7 @@ export const resolvers = {
     addTodo: (_, { text }, { cache }) => {
       const { todos: prevTodos } = cache.readQuery({ query: GET_STATE })
       const newTodo = {
-        id: nextTodoId++,
+        id: uuid(),
         text,
         completed: false,
         __typename: 'TodoItem',
