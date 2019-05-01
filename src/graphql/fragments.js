@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export const TODO_FRAGMENT = gql`
   fragment text on TodoItem {
@@ -6,4 +6,4 @@ export const TODO_FRAGMENT = gql`
     text
     completed
   }
-`;
+`

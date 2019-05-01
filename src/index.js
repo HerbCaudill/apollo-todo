@@ -1,21 +1,21 @@
-import 'todomvc-app-css/index.css';
-import 'todomvc-common/base.css';
+import 'todomvc-app-css/index.css'
+import 'todomvc-common/base.css'
 
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloClient } from 'apollo-client';
-import React from 'react';
-import { ApolloProvider } from 'react-apollo';
-import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
-import { render } from 'react-dom';
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloClient } from 'apollo-client'
+import React from 'react'
+import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks'
+import { render } from 'react-dom'
 
-import App from './components/App';
-import { defaults, resolvers, typeDefs } from './graphql';
+import App from './components/App'
+import { defaults, resolvers, typeDefs } from './graphql'
 
-const cache = new InMemoryCache();
+const cache = new InMemoryCache()
 
-cache.writeData({ data: defaults });
+cache.writeData({ data: defaults })
 
-const client = new ApolloClient({ cache, resolvers, typeDefs });
+const client = new ApolloClient({ cache, resolvers, typeDefs })
 
 render(
   <ApolloProvider client={client}>
@@ -24,4 +24,4 @@ render(
     </ApolloHooksProvider>
   </ApolloProvider>,
   document.getElementById('root')
-);
+)

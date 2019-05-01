@@ -5,4 +5,4 @@ export const defaults = {
     { id: 3, text: 'three', completed: false, __typename: 'TodoItem' },
   ],
   filter: 'SHOW_ALL',
-};
+}

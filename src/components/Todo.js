@@ -1,49 +1,49 @@
-import cn from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
-import { useMutation } from 'react-apollo-hooks';
+import cn from 'classnames'
+import React, { useEffect, useRef, useState } from 'react'
+import { useMutation } from 'react-apollo-hooks'
 
-import { ENTER_KEY, ESCAPE_KEY } from '../constants';
-import { DESTROY_TODO, EDIT_TODO, TOGGLE_TODO } from '../graphql';
+import { ENTER_KEY, ESCAPE_KEY } from '../constants'
+import { DESTROY_TODO, EDIT_TODO, TOGGLE_TODO } from '../graphql'
 
 const Todo = ({ id, completed, text }) => {
-  const [editing, setEditing] = useState(false);
-  const [editText, setEditText] = useState(text);
+  const [editing, setEditing] = useState(false)
+  const [editText, setEditText] = useState(text)
 
-  const input = useRef();
+  const input = useRef()
 
   const selectAllOnEdit = () => {
-    if (editing) input.current.select();
-  };
-  useEffect(selectAllOnEdit, [editing]);
+    if (editing) input.current.select()
+  }
+  useEffect(selectAllOnEdit, [editing])
 
-  const [toggleTodo] = useMutation(TOGGLE_TODO, { variables: { id } });
-  const [editTodo] = useMutation(EDIT_TODO, { variables: { id, text: editText } });
-  const [destroyTodo] = useMutation(DESTROY_TODO, { variables: { id } });
+  const [toggleTodo] = useMutation(TOGGLE_TODO, { variables: { id } })
+  const [editTodo] = useMutation(EDIT_TODO, { variables: { id, text: editText } })
+  const [destroyTodo] = useMutation(DESTROY_TODO, { variables: { id } })
 
   const submit = e => {
-    setEditText(e.target.value);
-    if (editText.length > 0) editTodo({ variables: { text: e.target.value, id } });
-    else destroyTodo({ variables: { id } });
-    setEditing(false);
-  };
+    setEditText(e.target.value)
+    if (editText.length > 0) editTodo({ variables: { text: e.target.value, id } })
+    else destroyTodo({ variables: { id } })
+    setEditing(false)
+  }
 
   const handleChange = e => {
-    e.preventDefault();
-    setEditText(e.target.value);
-  };
+    e.preventDefault()
+    setEditText(e.target.value)
+  }
 
   const handleKeyDown = e => {
     if (e.keyCode === ESCAPE_KEY) {
-      setEditText(text);
-      setEditing(false);
+      setEditText(text)
+      setEditing(false)
     } else if (e.keyCode === ENTER_KEY) {
-      submit(e);
+      submit(e)
     }
-  };
+  }
 
   const handleDoubleClick = e => {
-    setEditing(true);
-  };
+    setEditing(true)
+  }
 
   return (
     <li className={cn({ completed, editing })}>
@@ -61,7 +61,7 @@ const Todo = ({ id, completed, text }) => {
         onKeyDown={handleKeyDown}
       />
     </li>
-  );
-};
+  )
+}
 
-export default Todo;
+export default Todo
