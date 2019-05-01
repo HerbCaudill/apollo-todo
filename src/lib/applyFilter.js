@@ -1,4 +1,4 @@
-import { SHOW_ACTIVE, SHOW_ALL, SHOW_COMPLETED } from './constants'
+import { SHOW_ACTIVE, SHOW_ALL, SHOW_COMPLETED } from '../constants'
 
 export const applyFilter = (todos, filter) => {
   switch (filter) {
