@@ -1,4 +1,5 @@
-import { uuid } from '../utils'
+import uuid from 'uuid'
+
 import { GET_STATE, TODO_FRAGMENT } from './queries'
 
 export const resolvers = {
@@ -11,7 +12,7 @@ export const resolvers = {
     addTodo: (_, { text }, { cache }) => {
       // get the prior list of todos
       const { todos: prevTodos } = cache.readQuery({ query: GET_STATE })
-      // build a new todo
+      // build a new todo with the provided text
       const newTodo = {
         id: uuid(),
         text,
