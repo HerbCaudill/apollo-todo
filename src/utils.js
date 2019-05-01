@@ -28,5 +28,5 @@ export const uuid = () => {
 }
 
 export const pluralize = (count, word) => {
-  return count === 1 ? word + 's' : word
+  return count === 1 ? word : word + 's'
 }
