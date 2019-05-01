@@ -3,7 +3,7 @@ import { useMutation } from 'react-apollo-hooks'
 
 import { ADD_TODO } from '../graphql'
 
-const TodoForm = () => {
+const AddTodo = () => {
   const input = useRef(null)
 
   const onSubmit = e => {
@@ -23,4 +23,4 @@ const TodoForm = () => {
   )
 }
 
-export default TodoForm
+export default AddTodo
