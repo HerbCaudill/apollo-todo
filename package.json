@@ -1,7 +1,7 @@
 {
   "name": "todos",
   "private": true,
-  "description": "React Typescript TodosMVC",
+  "description": "React + Apollo GraphQL TodosMVC",
   "version": "0.0.2",
   "dependencies": {
     "apollo-cache-inmemory": "^1.5.1",
@@ -28,7 +28,7 @@
   },
   "prettier": {
     "printWidth": 120,
-    "semi": false,
+    "semi": true,
     "singleQuote": true,
     "trailingComma": "es5"
   },
