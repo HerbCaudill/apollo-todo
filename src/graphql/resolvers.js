@@ -28,30 +28,48 @@ export const resolvers = {
     destroyTodo: (_, vars, { cache }) => {
       // get the prior list of todos
       const { todos: oldTodos } = cache.readQuery({ query: GET_STATE })
-      // filter out the deleted todo
+      // filter out the deleted todo into a new array
       const todos = oldTodos.filter(d => d.id !== vars.id)
       // replace the whole array in our state
       cache.writeData({ data: { todos } })
     },
 
-    editTodo: (_, vars, { cache, getCacheKey }) => {
-      const id = getCacheKey({ __typename: 'TodoItem', id: vars.id })
-      const oldTodo = cache.readFragment({ id, fragment: TODO_FRAGMENT })
-      const todo = { ...oldTodo, text: vars.text }
-      cache.writeFragment({ id, fragment: TODO_FRAGMENT, data: todo })
+    editTodo: (_, { id, text }, context) => {
+      // look up the todo
+      const oldTodo = getTodo(id, context)
+      // make a new todo with the new text
+      const todo = { ...oldTodo, text }
+      // write it back to the cache
+      setTodo(todo, context)
     },
 
-    toggleTodo: (_, vars, { cache, getCacheKey }) => {
-      const id = getCacheKey({ __typename: 'TodoItem', id: vars.id })
-      const oldTodo = cache.readFragment({ id, fragment: TODO_FRAGMENT })
-      const data = { ...oldTodo, completed: !oldTodo.completed }
-      cache.writeFragment({ id, fragment: TODO_FRAGMENT, data })
+    toggleTodo: (_, { id }, context) => {
+      // look up the todo
+      const oldTodo = getTodo(id, context)
+      // make a new todo with the opposite completed state
+      const todo = { ...oldTodo, completed: !oldTodo.completed }
+      // write it back to the cache
+      setTodo(todo, context)
     },
 
     destroyCompleted: (_, vars, { cache }) => {
+      // get the prior list of todos
       const { todos: prevTodos } = cache.readQuery({ query: GET_STATE })
+      // make a new array without the completed items
       const todos = prevTodos.filter(d => !d.completed)
+      // replace the whole array in state
       cache.writeData({ data: { todos } })
     },
   },
+}
+
+const getTodo = (id, { getCacheKey, cache }) => {
+  // readFragment takes an id in the form 'TodoItem:123'
+  const key = getCacheKey({ __typename: 'TodoItem', id })
+  return cache.readFragment({ id: key, fragment: TODO_FRAGMENT })
+}
+
+const setTodo = (todo, { getCacheKey, cache }) => {
+  const key = getCacheKey({ __typename: 'TodoItem', id: todo.id })
+  cache.writeFragment({ id: key, fragment: TODO_FRAGMENT, data: todo })
 }

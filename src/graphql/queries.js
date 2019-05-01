@@ -64,6 +64,7 @@ export const GET_STATE = gql`
 // Just the one - used by editTodo and toggleTodo
 export const TODO_FRAGMENT = gql`
   fragment todoItem on TodoItem {
+    id
     text
     completed
   }
