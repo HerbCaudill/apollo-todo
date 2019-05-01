@@ -7,7 +7,7 @@ import { GET_STATE, SET_FILTER } from '../graphql'
 export const FilterButton = ({ value, children }) => {
   const { data } = useQuery(GET_STATE)
 
-  // hook to graphql mutation
+  // hook to GraphQL mutation
   const [setFilter] = useMutation(SET_FILTER)
 
   // if this is the currently selected filter, it is styled differently

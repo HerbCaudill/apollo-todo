@@ -9,7 +9,7 @@ export function ClearCompletedButton() {
   const { data } = useQuery(GET_STATE)
   const { todos } = data
 
-  // hook to graphql mutation
+  // hook to GraphQL mutation
   const [destroyCompleted] = useMutation(DESTROY_COMPLETED, { variables: {} })
 
   // don't render this button if there are no completed todos

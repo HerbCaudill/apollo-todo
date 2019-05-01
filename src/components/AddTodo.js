@@ -7,7 +7,7 @@ const AddTodo = () => {
   // input.current will contain a reference to the new todo input field
   const input = useRef()
 
-  // hook to graphql mutation
+  // hook to GraphQL mutation
   const [addTodo] = useMutation(ADD_TODO)
 
   const save = e => {

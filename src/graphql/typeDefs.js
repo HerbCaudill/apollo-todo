@@ -1,4 +1,6 @@
-export const typeDefs = `
+import gql from 'graphql-tag'
+
+export const typeDefs = gql`
   enum Filter {
     SHOW_ALL
     SHOW_ACTIVE
@@ -9,16 +11,5 @@ export const typeDefs = `
     id: Int!
     text: String!
     completed: Boolean!
-  }
-
-  type Mutation {
-    setFilter(filter: Filter!)
-    addTodo(text: String!): Todo
-    toggleTodo(id: Int!): Todo
-  }
-
-  type Query {
-    filter: Filter 
-    todos: [Todo]
   }
 `

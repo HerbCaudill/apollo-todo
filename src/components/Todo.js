@@ -20,7 +20,7 @@ const Todo = ({ id, completed, text }) => {
   }
   useEffect(selectAllOnEdit, [editing])
 
-  // hooks to graphql mutations
+  // hooks to GraphQL mutations
   const [toggleTodo] = useMutation(TOGGLE_TODO, { variables: { id } })
   const [editTodo] = useMutation(EDIT_TODO, { variables: { id, text: editText } })
   const [destroyTodo] = useMutation(DESTROY_TODO, { variables: { id } })
