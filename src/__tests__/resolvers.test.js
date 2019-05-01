@@ -1,7 +1,8 @@
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloClient } from 'apollo-client'
 import { SHOW_ALL, SHOW_COMPLETED } from '../constants'
-import { GET_STATE, defaults, resolvers, typeDefs } from '../graphql'
+import { todos } from '../__mocks__/todos'
+import { GET_STATE, resolvers, typeDefs } from '../graphql'
 
 const { Mutation } = resolvers
 
@@ -15,7 +16,7 @@ let client
 const _ = null
 
 const createClient = async () => {
-  cache.writeData({ data: defaults })
+  cache.writeData({ data: { todos, filter: SHOW_ALL } })
   return new ApolloClient({ cache, resolvers, typeDefs })
 }
 
