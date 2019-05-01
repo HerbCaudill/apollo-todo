@@ -12,7 +12,3 @@ export const applyFilter = (todos, filter) => {
       throw new Error('Unknown filter: ' + filter)
   }
 }
-
-export const pluralize = (count, word) => {
-  return count === 1 ? word : word + 's'
-}

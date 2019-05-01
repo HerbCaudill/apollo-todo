@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery } from 'react-apollo-hooks'
 
 import { GET_STATE } from '../graphql'
-import { applyFilter } from '../utils'
+import { applyFilter } from '../lib'
 import Todo from './Todo'
 
 const TodoList = () => {

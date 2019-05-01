@@ -3,7 +3,7 @@ import { useMutation, useQuery } from 'react-apollo-hooks'
 
 import { SHOW_COMPLETED } from '../constants'
 import { DESTROY_COMPLETED, GET_STATE } from '../graphql'
-import { applyFilter } from '../utils'
+import { applyFilter } from '../lib'
 
 export function ClearCompletedButton() {
   const { data } = useQuery(GET_STATE)

@@ -3,7 +3,7 @@ import { useQuery } from 'react-apollo-hooks'
 
 import { SHOW_ACTIVE } from '../constants'
 import { GET_STATE } from '../graphql'
-import { applyFilter, pluralize } from '../utils'
+import { applyFilter, pluralize } from '../lib'
 
 export function IncompleteCount() {
   const { data } = useQuery(GET_STATE)
