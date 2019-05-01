@@ -1,27 +1,9 @@
-import gql from 'graphql-tag'
-import React, { useState, useRef, useEffect } from 'react'
+import cn from 'classnames'
+import React, { useEffect, useRef, useState } from 'react'
 import { useMutation } from 'react-apollo-hooks'
 
-import { ENTER_KEY, ESCAPE_KEY } from './constants'
-
-var classNames = require('classnames')
-
-const TOGGLE_TODO = gql`
-  mutation ToggleTodo($id: Int!) {
-    toggleTodo(id: $id) @client
-  }
-`
-
-const EDIT_TODO = gql`
-  mutation EditTodo($id: Int!, $text: String!) {
-    editTodo(id: $id, text: $text) @client
-  }
-`
-const DESTROY_TODO = gql`
-  mutation DestroyTodo($id: Int!) {
-    destroyTodo(id: $id) @client
-  }
-`
+import { ENTER_KEY, ESCAPE_KEY } from '../constants'
+import { DESTROY_TODO, EDIT_TODO, TOGGLE_TODO } from '../graphql'
 
 const Todo = ({ id, completed, text }) => {
   const [editing, setEditing] = useState(false)
@@ -40,7 +22,6 @@ const Todo = ({ id, completed, text }) => {
 
   const submit = e => {
     setEditText(e.target.value)
-
     if (editText.length > 0) editTodo({ variables: { text: e.target.value, id } })
     else destroyTodo({ variables: { id } })
     setEditing(false)
@@ -65,7 +46,7 @@ const Todo = ({ id, completed, text }) => {
   }
 
   return (
-    <li className={classNames({ completed, editing })}>
+    <li className={cn({ completed, editing })}>
       <div className="view">
         <input className="toggle" type="checkbox" checked={completed} onChange={toggleTodo} />
         <label onDoubleClick={handleDoubleClick}>{text}</label>

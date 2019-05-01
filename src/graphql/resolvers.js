@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
-import GET_TODOS from './graphql/getTodos.js'
+
+import { GET_TODOS } from '.'
 
 export const defaults = {
   todos: [
@@ -7,13 +8,19 @@ export const defaults = {
     { id: 2, text: 'two', completed: true, __typename: 'TodoItem' },
     { id: 3, text: 'three', completed: false, __typename: 'TodoItem' },
   ],
-  visibilityFilter: 'SHOW_ALL',
+  filter: 'SHOW_ALL',
 }
 
 let nextTodoId = 100
 
 export const resolvers = {
   Mutation: {
+    setFilter: (_, { filter }, { cache }) => {
+      const newFilter = { filter, __typename: 'Filter' }
+      cache.writeData({ data: newFilter })
+      return newFilter
+    },
+
     addTodo: (_, { text }, { cache }) => {
       const previous = cache.readQuery({ query: GET_TODOS })
       const newTodo = {
@@ -22,10 +29,8 @@ export const resolvers = {
         completed: false,
         __typename: 'TodoItem',
       }
-      const data = {
-        todos: previous.todos.concat([newTodo]),
-      }
-      cache.writeData({ data })
+      const todos = previous.todos.concat([newTodo])
+      cache.writeData({ data: { todos } })
       return newTodo
     },
 

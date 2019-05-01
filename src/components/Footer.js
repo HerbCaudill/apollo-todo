@@ -1,38 +1,37 @@
-import gql from 'graphql-tag'
+import cn from 'classnames'
 import React from 'react'
-import { Query } from 'react-apollo'
+import { useMutation, useQuery } from 'react-apollo-hooks'
 
-import Link from './Link'
+import { SHOW_ACTIVE, SHOW_ALL, SHOW_COMPLETED } from '../constants'
+import { GET_FILTER, SET_FILTER } from '../graphql'
 
-const GET_VISIBILITY_FILTER = gql`
-  {
-    visibilityFilter @client
+const FilterOption = ({ filter, children }) => {
+  const [setFilter] = useMutation(SET_FILTER)
+  const { data } = useQuery(GET_FILTER)
+  const selected = data.filter === filter
+  const onClick = e => {
+    e.preventDefault()
+    setFilter({ variables: { filter } })
   }
-`
-
-const FilterLink = ({ filter, children }) => (
-  <Query query={GET_VISIBILITY_FILTER}>
-    {({ data, client }) => (
-      <li>
-        <Link
-          onClick={() => client.writeData({ data: { visibilityFilter: filter } })}
-          active={data.visibilityFilter === filter}
-        >
-          {children}
-        </Link>
-      </li>
-    )}
-  </Query>
-)
+  return (
+    <li>
+      {/* linter doesn't like not having an href */}
+      {/* eslint-disable-next-line */}
+      <a className={cn({ selected })} onClick={onClick}>
+        {children}
+      </a>
+    </li>
+  )
+}
 
 const Footer = () => (
   <footer className="footer">
     {/* TODO - count */}
     <span className="todo-count">5</span>
     <ul className="filters">
-      <FilterLink filter="SHOW_ALL">All</FilterLink>
-      <FilterLink filter="SHOW_ACTIVE">Active</FilterLink>
-      <FilterLink filter="SHOW_COMPLETED">Completed</FilterLink>
+      <FilterOption filter={SHOW_ALL}>All</FilterOption>
+      <FilterOption filter={SHOW_ACTIVE}>Active</FilterOption>
+      <FilterOption filter={SHOW_COMPLETED}>Completed</FilterOption>
     </ul>
     {/* TODO - clear completed */}
     <button className="clear-completed">Clear completed</button>

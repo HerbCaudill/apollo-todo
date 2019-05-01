@@ -1,18 +1,8 @@
-import gql from 'graphql-tag'
 import React from 'react'
 import { useQuery } from 'react-apollo-hooks'
-import Todo from './Todo'
 
-const GET_TODOS = gql`
-  {
-    todos @client {
-      id
-      completed
-      text
-    }
-    visibilityFilter @client
-  }
-`
+import { GET_TODOS } from '../graphql'
+import Todo from './Todo'
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
@@ -29,11 +19,11 @@ const getVisibleTodos = (todos, filter) => {
 
 const TodoList = () => {
   const { data } = useQuery(GET_TODOS)
-  const { todos, visibilityFilter } = data
+  const { todos, filter } = data
   return (
     <section className="main">
       <ul className="todo-list">
-        {getVisibleTodos(todos, visibilityFilter).map(todo => (
+        {getVisibleTodos(todos, filter).map(todo => (
           <Todo key={todo.id} {...todo} />
         ))}
       </ul>

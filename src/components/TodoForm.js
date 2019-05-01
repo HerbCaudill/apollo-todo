@@ -1,14 +1,7 @@
-import gql from 'graphql-tag'
 import React, { useRef } from 'react'
 import { useMutation } from 'react-apollo-hooks'
 
-const ADD_TODO = gql`
-  mutation addTodo($text: String!) {
-    addTodo(text: $text) @client {
-      id
-    }
-  }
-`
+import { ADD_TODO } from '../graphql'
 
 const TodoForm = () => {
   const input = useRef(null)
