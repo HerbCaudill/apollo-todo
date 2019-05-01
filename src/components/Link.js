@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Link = ({ active, children, onClick }) => {
   return (
@@ -6,13 +6,13 @@ const Link = ({ active, children, onClick }) => {
     <a
       className={active ? 'selected' : ''}
       onClick={e => {
-        e.preventDefault()
-        onClick()
+        e.preventDefault();
+        onClick();
       }}
     >
       {children}
     </a>
-  )
-}
+  );
+};
 
-export default Link
+export default Link;

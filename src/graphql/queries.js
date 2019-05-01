@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const GET_STATE = gql`
   {
@@ -9,4 +9,4 @@ export const GET_STATE = gql`
     }
     filter @client
   }
-`
+`;
