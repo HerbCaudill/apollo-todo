@@ -2,9 +2,7 @@ import gql from 'graphql-tag'
 
 export const SET_FILTER = gql`
   mutation setFilter($filter: Filter!) {
-    setFilter(filter: $filter) @client {
-      filter
-    }
+    setFilter(filter: $filter) @client
   }
 `
 export const ADD_TODO = gql`

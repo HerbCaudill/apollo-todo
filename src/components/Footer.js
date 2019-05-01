@@ -3,11 +3,11 @@ import React from 'react'
 import { useMutation, useQuery } from 'react-apollo-hooks'
 
 import { SHOW_ACTIVE, SHOW_ALL, SHOW_COMPLETED } from '../constants'
-import { GET_FILTER, SET_FILTER } from '../graphql'
+import { GET_STATE, SET_FILTER } from '../graphql'
 
 const FilterOption = ({ filter, children }) => {
   const [setFilter] = useMutation(SET_FILTER)
-  const { data } = useQuery(GET_FILTER)
+  const { data } = useQuery(GET_STATE)
   const selected = data.filter === filter
   const onClick = e => {
     e.preventDefault()

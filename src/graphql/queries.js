@@ -1,12 +1,6 @@
 import gql from 'graphql-tag'
 
-export const GET_FILTER = gql`
-  {
-    filter @client
-  }
-`
-
-export const GET_TODOS = gql`
+export const GET_STATE = gql`
   {
     todos @client {
       id
